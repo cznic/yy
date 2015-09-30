@@ -815,84 +815,80 @@ func (%[1]s *%[2]s) String() string {
 		fmt.Fprintf(f, `// Pos reports the position of the first component of %[1]s or zero if it's empty.
 func (%[1]s *%[2]s) Pos() token.Pos {
 `, rx, nm)
-		if isOpt(sym) {
-			rules := sym.Rules
-			r0, r1 := rules[0].Components, rules[1].Components
-			if len(r1) == 0 {
-				r1 = r0
-			}
-			c := r1[0]
-			if spec.Syms[c].IsTerminal {
-				c = *oToken
-			}
-			fmt.Fprintf(f, `if %[1]s == nil {
-	return 0
-}
+		cases := map[string][]int{}
+		isopt := isOpt(sym)
+		if isopt {
+			fmt.Fprintf(f, "if %s == nil { return 0 }\n\n", rx)
+		}
+		for i, v := range sym.Rules {
+			m := map[string]int{}
+			s := ""
+			for _, c := range v.Components {
+				if strings.HasPrefix(c, "$") {
+					continue
+				}
 
-	return %[1]s.%[2]s.Pos()
-`, rx, c)
-			fmt.Fprintf(f, "}\n")
-			continue
-		}
-
-		rules := sym.Rules
-		m := map[string][]int{}
-		for i, rule := range rules {
-			co := rule.Components
-			c := ""
-			if len(co) != 0 {
-				c = co[0]
-				if spec.Syms[c].IsTerminal {
-					c = "<token>"
+				isT := false
+				cs := spec.Syms[c]
+				if cs.IsTerminal {
+					c = *oToken
+					isT = true
+				}
+				m[c]++
+				suffix := ""
+				if m[c] > 1 {
+					suffix = strconv.Itoa(m[c])
+				}
+				if s != "" {
+					s += " "
+				}
+				s += fmt.Sprintf("%s$%s", c, suffix)
+				if isT || !cs.DerivesEmpty() {
+					break
 				}
 			}
-			m[c] = append(m[c], i)
+			cases[s] = append(cases[s], i)
 		}
-		a2 := []string{}
-		for k := range m {
-			a2 = append(a2, k)
+		a = []string{}
+		for k := range cases {
+			a = append(a, k)
 		}
-		sort.Strings(a2)
-		for i, k := range a2 {
-			if k == sym.Name {
-				delete(m, k)
-				copy(a2[i:], a2[i+1:])
-				a2 = a2[:len(a2)-1]
-				fmt.Fprintf(f, "if x := %s.%s; x != nil { return x.Pos() }\n\n", rx, k)
-			}
+		sort.Strings(a)
+		if len(a) > 1 && !isopt {
+			fmt.Fprintf(f, "switch %s.%s {\n", rx, *oKind)
 		}
-		if len(a2) > 1 {
-			fmt.Fprintf(f, "switch %s.%s {", rx, *oKind)
-		}
-		for _, k := range a2 {
-			if len(a2) > 1 {
-				s := []string{}
-				for _, v := range m[k] {
-					s = append(s, fmt.Sprintf("%v", v))
+		for _, k := range a {
+			v := cases[k]
+			if len(a) > 1 && !isopt {
+				fmt.Fprintf(f, "case ")
+				for _, v := range v[:len(v)-1] {
+					fmt.Fprintf(f, "%d, ", v)
 				}
-				if k != sym.Name {
-					fmt.Fprintf(f, "case %v:\n", strings.Join(s, ", "))
-				}
+				fmt.Fprintf(f, "%d", v[len(v)-1])
+				fmt.Fprintf(f, ":\n")
 			}
 			if k == "" {
-				fmt.Fprintf(f, "return 0\n")
+				if !isopt {
+					fmt.Fprintf(f, "return 0\n")
+				}
 				continue
 			}
 
-			if k == "<token>" || spec.Syms[k].IsTerminal {
-				fmt.Fprintf(f, "return %s.%s.Pos()\n", rx, *oToken)
-				continue
+			a := strings.Split(k, " ")
+			for _, v := range a[:len(a)-1] {
+				v = strings.Replace(v, "$", "", -1)
+				fmt.Fprintf(f, "if p := %s.%s.Pos(); p != 0 { return p }\n\n", rx, v)
 			}
-
-			fmt.Fprintf(f, "return %s.%s.Pos()\n", rx, k)
+			s := strings.Replace(a[len(a)-1], "$", "", -1)
+			fmt.Fprintf(f, "return %s.%s.Pos()\n", rx, s)
 		}
-		if len(a2) > 1 {
-			fmt.Fprintf(f, `default:
-	panic("internal error")
-}
-`)
+		if len(a) > 1 && !isopt {
+			fmt.Fprintf(f, "default:\n")
+			fmt.Fprintf(f, "panic(\"internal error\")\n")
+			fmt.Fprintf(f, "}\n")
 		}
 		fmt.Fprintf(f, "}\n")
+		continue
 	}
 
 	b, err := format.Source(f.Bytes())

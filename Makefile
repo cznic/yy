@@ -2,7 +2,7 @@
 # Use of this source code is governed by a BSD-style
 # license that can be found in the LICENSE file.
 
-.PHONY:	all clean cover cpu editor internalError later mem nuke todo
+.PHONY:	all clean cover cpu edit editor internalError later mem nuke todo
 
 grep=--include=*.go --include=*.l --include=*.y
 
@@ -22,6 +22,9 @@ cpu:
 	go test -c -o cpu.test
 	./cpu.test -noerr -test.cpuprofile cpu.out
 	go tool pprof --lines cpu.test cpu.out
+
+edit:
+	gvim -p Makefile *.go testdata/*
 
 editor:
 	gofmt -l -s -w *.go

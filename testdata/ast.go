@@ -73,11 +73,14 @@ func (n *ArgumentList) String() string {
 
 // Pos reports the position of the first component of n or zero if it's empty.
 func (n *ArgumentList) Pos() token.Pos {
-	if x := n.ArgumentList; x != nil {
-		return x.Pos()
+	switch n.Case {
+	case 0:
+		return n.Argument.Pos()
+	case 1:
+		return n.ArgumentList.Pos()
+	default:
+		panic("internal error")
 	}
-
-	return n.Argument.Pos()
 }
 
 // ArrayType represents data reduced by productions:
@@ -384,11 +387,14 @@ func (n *CompLitItemList) String() string {
 
 // Pos reports the position of the first component of n or zero if it's empty.
 func (n *CompLitItemList) Pos() token.Pos {
-	if x := n.CompLitItemList; x != nil {
-		return x.Pos()
+	switch n.Case {
+	case 0:
+		return n.CompLitItem.Pos()
+	case 1:
+		return n.CompLitItemList.Pos()
+	default:
+		panic("internal error")
 	}
-
-	return n.CompLitItem.Pos()
 }
 
 // CompLitType represents data reduced by productions:
@@ -548,11 +554,14 @@ func (n *ConstSpecList) String() string {
 
 // Pos reports the position of the first component of n or zero if it's empty.
 func (n *ConstSpecList) Pos() token.Pos {
-	if x := n.ConstSpecList; x != nil {
-		return x.Pos()
+	switch n.Case {
+	case 0:
+		return n.ConstSpec.Pos()
+	case 1:
+		return n.ConstSpecList.Pos()
+	default:
+		panic("internal error")
 	}
-
-	return n.ConstSpec.Pos()
 }
 
 // Elif represents data reduced by production:
@@ -618,7 +627,11 @@ func (n *ElifList) Pos() token.Pos {
 		return 0
 	}
 
-	return n.ElifList.Pos()
+	if p := n.ElifList.Pos(); p != 0 {
+		return p
+	}
+
+	return n.Elif.Pos()
 }
 
 // Else represents data reduced by productions:
@@ -688,11 +701,14 @@ func (n *Expression) String() string {
 
 // Pos reports the position of the first component of n or zero if it's empty.
 func (n *Expression) Pos() token.Pos {
-	if x := n.Expression; x != nil {
-		return x.Pos()
+	switch n.Case {
+	case 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20:
+		return n.Expression.Pos()
+	case 0:
+		return n.UnaryExpression.Pos()
+	default:
+		panic("internal error")
 	}
-
-	return n.UnaryExpression.Pos()
 }
 
 // ExpressionList represents data reduced by productions:
@@ -733,11 +749,14 @@ func (n *ExpressionList) String() string {
 
 // Pos reports the position of the first component of n or zero if it's empty.
 func (n *ExpressionList) Pos() token.Pos {
-	if x := n.ExpressionList; x != nil {
-		return x.Pos()
+	switch n.Case {
+	case 0:
+		return n.Expression.Pos()
+	case 1:
+		return n.ExpressionList.Pos()
+	default:
+		panic("internal error")
 	}
-
-	return n.Expression.Pos()
 }
 
 // ExpressionListOpt represents data reduced by productions:
@@ -839,8 +858,14 @@ func (n *ForHeader) Pos() token.Pos {
 	switch n.Case {
 	case 0:
 		return n.Range.Pos()
-	case 1, 2:
+	case 2:
 		return n.SimpleStatementOpt.Pos()
+	case 1:
+		if p := n.SimpleStatementOpt.Pos(); p != 0 {
+			return p
+		}
+
+		return n.Token.Pos()
 	default:
 		panic("internal error")
 	}
@@ -973,11 +998,14 @@ func (n *IdentifierList) String() string {
 
 // Pos reports the position of the first component of n or zero if it's empty.
 func (n *IdentifierList) Pos() token.Pos {
-	if x := n.IdentifierList; x != nil {
-		return x.Pos()
+	switch n.Case {
+	case 1:
+		return n.IdentifierList.Pos()
+	case 0:
+		return n.Token.Pos()
+	default:
+		panic("internal error")
 	}
-
-	return n.Token.Pos()
 }
 
 // IdentifierOpt represents data reduced by productions:
@@ -1026,7 +1054,18 @@ func (n *IfHeader) String() string {
 
 // Pos reports the position of the first component of n or zero if it's empty.
 func (n *IfHeader) Pos() token.Pos {
-	return n.SimpleStatementOpt.Pos()
+	switch n.Case {
+	case 0:
+		return n.SimpleStatementOpt.Pos()
+	case 1:
+		if p := n.SimpleStatementOpt.Pos(); p != 0 {
+			return p
+		}
+
+		return n.Token.Pos()
+	default:
+		panic("internal error")
+	}
 }
 
 // IfStatement represents data reduced by production:
@@ -1122,7 +1161,11 @@ func (n *ImportList) Pos() token.Pos {
 		return 0
 	}
 
-	return n.ImportList.Pos()
+	if p := n.ImportList.Pos(); p != 0 {
+		return p
+	}
+
+	return n.ImportDecl.Pos()
 }
 
 // ImportPath represents data reduced by production:
@@ -1168,10 +1211,14 @@ func (n *ImportSpec) String() string {
 // Pos reports the position of the first component of n or zero if it's empty.
 func (n *ImportSpec) Pos() token.Pos {
 	switch n.Case {
+	case 1:
+		if p := n.IdentifierOpt.Pos(); p != 0 {
+			return p
+		}
+
+		return n.ImportPath.Pos()
 	case 0:
 		return n.Token.Pos()
-	case 1:
-		return n.IdentifierOpt.Pos()
 	default:
 		panic("internal error")
 	}
@@ -1215,11 +1262,14 @@ func (n *ImportSpecList) String() string {
 
 // Pos reports the position of the first component of n or zero if it's empty.
 func (n *ImportSpecList) Pos() token.Pos {
-	if x := n.ImportSpecList; x != nil {
-		return x.Pos()
+	switch n.Case {
+	case 0:
+		return n.ImportSpec.Pos()
+	case 1:
+		return n.ImportSpecList.Pos()
+	default:
+		panic("internal error")
 	}
-
-	return n.ImportSpec.Pos()
 }
 
 // InterfaceMethodDecl represents data reduced by productions:
@@ -1244,10 +1294,10 @@ func (n *InterfaceMethodDecl) String() string {
 // Pos reports the position of the first component of n or zero if it's empty.
 func (n *InterfaceMethodDecl) Pos() token.Pos {
 	switch n.Case {
-	case 0:
-		return n.Token.Pos()
 	case 1:
 		return n.QualifiedIdent.Pos()
+	case 0:
+		return n.Token.Pos()
 	default:
 		panic("internal error")
 	}
@@ -1291,11 +1341,14 @@ func (n *InterfaceMethodDeclList) String() string {
 
 // Pos reports the position of the first component of n or zero if it's empty.
 func (n *InterfaceMethodDeclList) Pos() token.Pos {
-	if x := n.InterfaceMethodDeclList; x != nil {
-		return x.Pos()
+	switch n.Case {
+	case 0:
+		return n.InterfaceMethodDecl.Pos()
+	case 1:
+		return n.InterfaceMethodDeclList.Pos()
+	default:
+		panic("internal error")
 	}
-
-	return n.InterfaceMethodDecl.Pos()
 }
 
 // InterfaceType represents data reduced by productions:
@@ -1418,11 +1471,14 @@ func (n *LBraceCompLitItemList) String() string {
 
 // Pos reports the position of the first component of n or zero if it's empty.
 func (n *LBraceCompLitItemList) Pos() token.Pos {
-	if x := n.LBraceCompLitItemList; x != nil {
-		return x.Pos()
+	switch n.Case {
+	case 0:
+		return n.LBraceCompLitItem.Pos()
+	case 1:
+		return n.LBraceCompLitItemList.Pos()
+	default:
+		panic("internal error")
 	}
-
-	return n.LBraceCompLitItem.Pos()
 }
 
 // LBraceCompLitValue represents data reduced by productions:
@@ -1505,12 +1561,12 @@ func (n *Operand) String() string {
 // Pos reports the position of the first component of n or zero if it's empty.
 func (n *Operand) Pos() token.Pos {
 	switch n.Case {
-	case 0, 1, 5:
-		return n.Token.Pos()
 	case 2:
 		return n.BasicLiteral.Pos()
 	case 3, 4:
 		return n.FuncType.Pos()
+	case 0, 1, 5:
+		return n.Token.Pos()
 	default:
 		panic("internal error")
 	}
@@ -1588,11 +1644,14 @@ func (n *ParameterDeclList) String() string {
 
 // Pos reports the position of the first component of n or zero if it's empty.
 func (n *ParameterDeclList) Pos() token.Pos {
-	if x := n.ParameterDeclList; x != nil {
-		return x.Pos()
+	switch n.Case {
+	case 0:
+		return n.ParameterDecl.Pos()
+	case 1:
+		return n.ParameterDeclList.Pos()
+	default:
+		panic("internal error")
 	}
-
-	return n.ParameterDecl.Pos()
 }
 
 // Parameters represents data reduced by productions:
@@ -1664,15 +1723,13 @@ func (n *PrimaryExpression) String() string {
 
 // Pos reports the position of the first component of n or zero if it's empty.
 func (n *PrimaryExpression) Pos() token.Pos {
-	if x := n.PrimaryExpression; x != nil {
-		return x.Pos()
-	}
-
 	switch n.Case {
 	case 1:
 		return n.CompLitType.Pos()
 	case 0:
 		return n.Operand.Pos()
+	case 2, 3, 4, 5, 6, 7, 8, 9:
+		return n.PrimaryExpression.Pos()
 	case 10:
 		return n.TypeLiteral.Pos()
 	default:
@@ -1753,10 +1810,10 @@ func (n *Range) String() string {
 // Pos reports the position of the first component of n or zero if it's empty.
 func (n *Range) Pos() token.Pos {
 	switch n.Case {
-	case 2:
-		return n.Token.Pos()
 	case 0, 1:
 		return n.ExpressionList.Pos()
+	case 2:
+		return n.Token.Pos()
 	default:
 		panic("internal error")
 	}
@@ -2055,11 +2112,18 @@ func (n *StatementList) String() string {
 
 // Pos reports the position of the first component of n or zero if it's empty.
 func (n *StatementList) Pos() token.Pos {
-	if x := n.StatementList; x != nil {
-		return x.Pos()
-	}
+	switch n.Case {
+	case 0:
+		return n.Statement.Pos()
+	case 1:
+		if p := n.StatementList.Pos(); p != 0 {
+			return p
+		}
 
-	return n.Statement.Pos()
+		return n.Token.Pos()
+	default:
+		panic("internal error")
+	}
 }
 
 // StatementNonDecl represents data reduced by productions:
@@ -2104,8 +2168,6 @@ func (n *StatementNonDecl) String() string {
 // Pos reports the position of the first component of n or zero if it's empty.
 func (n *StatementNonDecl) Pos() token.Pos {
 	switch n.Case {
-	case 0, 1, 2, 3, 5, 6, 7, 9, 13:
-		return n.Token.Pos()
 	case 4:
 		return n.ForStatement.Pos()
 	case 8:
@@ -2116,6 +2178,8 @@ func (n *StatementNonDecl) Pos() token.Pos {
 		return n.SimpleStatement.Pos()
 	case 12:
 		return n.SwitchStatement.Pos()
+	case 0, 1, 2, 3, 5, 6, 7, 9, 13:
+		return n.Token.Pos()
 	default:
 		panic("internal error")
 	}
@@ -2176,12 +2240,12 @@ func (n *StructFieldDecl) String() string {
 // Pos reports the position of the first component of n or zero if it's empty.
 func (n *StructFieldDecl) Pos() token.Pos {
 	switch n.Case {
-	case 0, 3, 4, 5:
-		return n.Token.Pos()
 	case 1:
 		return n.IdentifierList.Pos()
 	case 2:
 		return n.QualifiedIdent.Pos()
+	case 0, 3, 4, 5:
+		return n.Token.Pos()
 	default:
 		panic("internal error")
 	}
@@ -2225,11 +2289,14 @@ func (n *StructFieldDeclList) String() string {
 
 // Pos reports the position of the first component of n or zero if it's empty.
 func (n *StructFieldDeclList) Pos() token.Pos {
-	if x := n.StructFieldDeclList; x != nil {
-		return x.Pos()
+	switch n.Case {
+	case 0:
+		return n.StructFieldDecl.Pos()
+	case 1:
+		return n.StructFieldDeclList.Pos()
+	default:
+		panic("internal error")
 	}
-
-	return n.StructFieldDecl.Pos()
 }
 
 // StructType represents data reduced by productions:
@@ -2368,11 +2435,14 @@ func (n *SwitchCaseList) String() string {
 
 // Pos reports the position of the first component of n or zero if it's empty.
 func (n *SwitchCaseList) Pos() token.Pos {
-	if x := n.SwitchCaseList; x != nil {
-		return x.Pos()
+	switch n.Case {
+	case 0:
+		return n.SwitchCaseBlock.Pos()
+	case 1:
+		return n.SwitchCaseList.Pos()
+	default:
+		panic("internal error")
 	}
-
-	return n.SwitchCaseBlock.Pos()
 }
 
 // SwitchStatement represents data reduced by production:
@@ -2424,12 +2494,12 @@ func (n *TopLevelDecl) String() string {
 // Pos reports the position of the first component of n or zero if it's empty.
 func (n *TopLevelDecl) Pos() token.Pos {
 	switch n.Case {
-	case 4:
-		return n.Token.Pos()
 	case 0:
 		return n.ConstDecl.Pos()
 	case 1:
 		return n.FuncDecl.Pos()
+	case 4:
+		return n.Token.Pos()
 	case 2:
 		return n.TypeDecl.Pos()
 	case 3:
@@ -2480,7 +2550,11 @@ func (n *TopLevelDeclList) Pos() token.Pos {
 		return 0
 	}
 
-	return n.TopLevelDeclList.Pos()
+	if p := n.TopLevelDeclList.Pos(); p != 0 {
+		return p
+	}
+
+	return n.TopLevelDecl.Pos()
 }
 
 // Type represents data reduced by productions:
@@ -2524,8 +2598,6 @@ func (n *Type) String() string {
 // Pos reports the position of the first component of n or zero if it's empty.
 func (n *Type) Pos() token.Pos {
 	switch n.Case {
-	case 0, 1:
-		return n.Token.Pos()
 	case 2:
 		return n.ArrayType.Pos()
 	case 3:
@@ -2542,6 +2614,8 @@ func (n *Type) Pos() token.Pos {
 		return n.SliceType.Pos()
 	case 9:
 		return n.StructType.Pos()
+	case 0, 1:
+		return n.Token.Pos()
 	default:
 		panic("internal error")
 	}
@@ -2609,8 +2683,6 @@ func (n *TypeLiteral) String() string {
 // Pos reports the position of the first component of n or zero if it's empty.
 func (n *TypeLiteral) Pos() token.Pos {
 	switch n.Case {
-	case 0:
-		return n.Token.Pos()
 	case 1:
 		return n.ArrayType.Pos()
 	case 2:
@@ -2625,6 +2697,8 @@ func (n *TypeLiteral) Pos() token.Pos {
 		return n.SliceType.Pos()
 	case 7:
 		return n.StructType.Pos()
+	case 0:
+		return n.Token.Pos()
 	default:
 		panic("internal error")
 	}
@@ -2691,11 +2765,14 @@ func (n *TypeSpecList) String() string {
 
 // Pos reports the position of the first component of n or zero if it's empty.
 func (n *TypeSpecList) Pos() token.Pos {
-	if x := n.TypeSpecList; x != nil {
-		return x.Pos()
+	switch n.Case {
+	case 0:
+		return n.TypeSpec.Pos()
+	case 1:
+		return n.TypeSpecList.Pos()
+	default:
+		panic("internal error")
 	}
-
-	return n.TypeSpec.Pos()
 }
 
 // UnaryExpression represents data reduced by productions:
@@ -2726,10 +2803,10 @@ func (n *UnaryExpression) String() string {
 // Pos reports the position of the first component of n or zero if it's empty.
 func (n *UnaryExpression) Pos() token.Pos {
 	switch n.Case {
-	case 0, 1, 2, 3, 4, 5, 6:
-		return n.Token.Pos()
 	case 7:
 		return n.PrimaryExpression.Pos()
+	case 0, 1, 2, 3, 4, 5, 6:
+		return n.Token.Pos()
 	default:
 		panic("internal error")
 	}
@@ -2828,9 +2905,12 @@ func (n *VarSpecList) String() string {
 
 // Pos reports the position of the first component of n or zero if it's empty.
 func (n *VarSpecList) Pos() token.Pos {
-	if x := n.VarSpecList; x != nil {
-		return x.Pos()
+	switch n.Case {
+	case 0:
+		return n.VarSpec.Pos()
+	case 1:
+		return n.VarSpecList.Pos()
+	default:
+		panic("internal error")
 	}
-
-	return n.VarSpec.Pos()
 }
