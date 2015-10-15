@@ -619,6 +619,9 @@ func astString(node ast.Node) string {
 			f(x.X)
 			buf.WriteByte('.')
 			f(x.Sel)
+		case *ast.StarExpr:
+			buf.WriteByte('*')
+			f(x.X)
 		default:
 			log.Fatalf("unsupported go/ast.Node type %T", x)
 		}
