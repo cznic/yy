@@ -1503,7 +1503,7 @@ import (
 					} else {
 						ls = unquote(ls)
 					}
-					r = append(r, ls)
+					r = append(r, strings.TrimSpace(ls))
 				}
 				src = strings.Join(r, " ")
 			}
