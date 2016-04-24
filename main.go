@@ -43,6 +43,8 @@
 //	    	Fuction to stringify things nicely. (default "prettyString")
 //	  -token string
 //	    	Default terminal yacc type. (default "Token")
+//	  -v string
+//		Create grammar report. (default "y.output")
 //	  -yylex string
 //	    	Type of yacc's yylex. (default "*lexer")
 //
@@ -327,6 +329,7 @@
 package main
 
 import (
+	"bufio"
 	"bytes"
 	"flag"
 	"fmt"
@@ -364,6 +367,7 @@ var (
 	oO            = flag.String("o", "parser.y", "Output yacc file.")
 	oPkg          = flag.String("pkg", "", "Package name of generated Go files. Extract from input when blank.")
 	oPrettyString = flag.String("prettyString", "prettyString", "Fuction to stringify things nicely.")
+	oReport       = flag.String("v", "y.output", "create grammar report")
 	oToken        = flag.String("token", "Token", "Default terminal yacc type.")
 	oYylex        = flag.String("yylex", "*lexer", "Type of yacc's yylex.")
 
@@ -438,9 +442,26 @@ func main() {
 	flag.Parse()
 	checkOptions()
 
+	var rep io.Writer
+	if nm := *oReport; nm != "" {
+		f, err := os.Create(nm)
+		if err != nil {
+			log.Fatal(err)
+		}
+
+		defer f.Close()
+
+		w := bufio.NewWriter(f)
+
+		defer w.Flush()
+
+		rep = w
+	}
+
 	fset = token.NewFileSet()
 	spec, err := y.ProcessFile(fset, flag.Arg(0), &y.Options{
 		AllowTypeErrors: true,
+		Report:          rep,
 	})
 	if err != nil {
 		log.Fatal(err)
