@@ -461,6 +461,7 @@ func main() {
 	fset = token.NewFileSet()
 	spec, err := y.ProcessFile(fset, flag.Arg(0), &y.Options{
 		AllowTypeErrors: true,
+		Closures:        true,
 		Report:          rep,
 	})
 	if err != nil {
