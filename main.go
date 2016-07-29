@@ -43,6 +43,8 @@
 //	    	Fuction to stringify things nicely. (default "prettyString")
 //	  -token string
 //	    	Default terminal yacc type. (default "Token")
+//	  -tokenSep string
+//	    	AST examples token separator string. (default " ")
 //	  -v string
 //		Create grammar report. (default "y.output")
 //	  -yylex string
@@ -369,6 +371,7 @@ var (
 	oPrettyString = flag.String("prettyString", "prettyString", "Fuction to stringify things nicely.")
 	oReport       = flag.String("v", "y.output", "create grammar report")
 	oToken        = flag.String("token", "Token", "Default terminal yacc type.")
+	oTokenSep     = flag.String("tokenSep", " ", "AST examples token separator string.")
 	oYylex        = flag.String("yylex", "*lexer", "Type of yacc's yylex.")
 
 	copyright       string                      // Extracted from input.
@@ -1531,7 +1534,7 @@ import (
 					}
 					r = append(r, strings.Trim(ls, " \t\v\f"))
 				}
-				src = strings.Join(r, " ")
+				src = strings.Join(r, *oTokenSep)
 			}
 
 			switch {
