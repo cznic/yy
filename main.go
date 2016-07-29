@@ -477,6 +477,10 @@ func main() {
 	}
 	copyright = extractCopyright(spec.Prologue)
 	union := spec.Union
+	if union == nil {
+		log.Fatal("missing %union definition")
+	}
+
 	for _, fields := range union.Fields.List[1:] { // Skip yys int.
 		for _, nm := range fields.Names {
 			ytypes[nm.Name] = astString(fields.Type)
