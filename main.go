@@ -849,9 +849,7 @@ func (%[1]s *%[2]s) Pos() token.Pos {
 `, rx, nm)
 		cases := map[string][]int{}
 		isopt := isOpt(sym)
-		if isopt {
-			fmt.Fprintf(f, "if %s == nil { return 0 }\n\n", rx)
-		}
+		fmt.Fprintf(f, "if %s == nil { return 0 }\n\n", rx)
 		for i, v := range sym.Rules {
 			m := map[string]int{}
 			s := ""
