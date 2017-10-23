@@ -1305,7 +1305,7 @@ func constructNode(kind int, spec *y.Parser, semanticAction bool, src string, cl
 	caseName := ""
 	for _, d := range ruleDirectives[rule] {
 		if d.cmd == "case" {
-			caseName = d.arg
+			caseName = sym.Name + d.arg
 		}
 	}
 	ignored := isIgnored(sym)

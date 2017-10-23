@@ -768,14 +768,14 @@ Expression:
 	UnaryExpression
 	{
 		$$ = &Expression{
-			Case:             Unary,
+			Case:             ExpressionUnary,
 			UnaryExpression:  $1.(*UnaryExpression),
 		}
 	}
 |	Expression '%' Expression
 	{
 		$$ = &Expression{
-			Case:         Mod,
+			Case:         ExpressionMod,
 			Expression:   $1.(*Expression),
 			Token:        $2,
 			Expression2:  $3.(*Expression),
@@ -784,7 +784,7 @@ Expression:
 |	Expression '&' Expression
 	{
 		$$ = &Expression{
-			Case:         And,
+			Case:         ExpressionAnd,
 			Expression:   $1.(*Expression),
 			Token:        $2,
 			Expression2:  $3.(*Expression),
@@ -793,7 +793,7 @@ Expression:
 |	Expression '*' Expression
 	{
 		$$ = &Expression{
-			Case:         Mul,
+			Case:         ExpressionMul,
 			Expression:   $1.(*Expression),
 			Token:        $2,
 			Expression2:  $3.(*Expression),
@@ -802,7 +802,7 @@ Expression:
 |	Expression '+' Expression
 	{
 		$$ = &Expression{
-			Case:         Add,
+			Case:         ExpressionAdd,
 			Expression:   $1.(*Expression),
 			Token:        $2,
 			Expression2:  $3.(*Expression),
@@ -811,7 +811,7 @@ Expression:
 |	Expression '-' Expression
 	{
 		$$ = &Expression{
-			Case:         Sub,
+			Case:         ExpressionSub,
 			Expression:   $1.(*Expression),
 			Token:        $2,
 			Expression2:  $3.(*Expression),
@@ -820,7 +820,7 @@ Expression:
 |	Expression '/' Expression
 	{
 		$$ = &Expression{
-			Case:         Div,
+			Case:         ExpressionDiv,
 			Expression:   $1.(*Expression),
 			Token:        $2,
 			Expression2:  $3.(*Expression),
@@ -829,7 +829,7 @@ Expression:
 |	Expression '<' Expression
 	{
 		$$ = &Expression{
-			Case:         Lt,
+			Case:         ExpressionLt,
 			Expression:   $1.(*Expression),
 			Token:        $2,
 			Expression2:  $3.(*Expression),
@@ -838,7 +838,7 @@ Expression:
 |	Expression '>' Expression
 	{
 		$$ = &Expression{
-			Case:         Gt,
+			Case:         ExpressionGt,
 			Expression:   $1.(*Expression),
 			Token:        $2,
 			Expression2:  $3.(*Expression),
@@ -847,7 +847,7 @@ Expression:
 |	Expression '^' Expression
 	{
 		$$ = &Expression{
-			Case:         Xor,
+			Case:         ExpressionXor,
 			Expression:   $1.(*Expression),
 			Token:        $2,
 			Expression2:  $3.(*Expression),
@@ -856,7 +856,7 @@ Expression:
 |	Expression '|' Expression
 	{
 		$$ = &Expression{
-			Case:         Or,
+			Case:         ExpressionOr,
 			Expression:   $1.(*Expression),
 			Token:        $2,
 			Expression2:  $3.(*Expression),
@@ -874,7 +874,7 @@ Expression:
 |	Expression "&^" Expression
 	{
 		$$ = &Expression{
-			Case:         AndNot,
+			Case:         ExpressionAndNot,
 			Expression:   $1.(*Expression),
 			Token:        $2,
 			Expression2:  $3.(*Expression),
@@ -883,7 +883,7 @@ Expression:
 |	Expression "==" Expression
 	{
 		$$ = &Expression{
-			Case:         Eq,
+			Case:         ExpressionEq,
 			Expression:   $1.(*Expression),
 			Token:        $2,
 			Expression2:  $3.(*Expression),
@@ -892,7 +892,7 @@ Expression:
 |	Expression ">=" Expression
 	{
 		$$ = &Expression{
-			Case:         Ge,
+			Case:         ExpressionGe,
 			Expression:   $1.(*Expression),
 			Token:        $2,
 			Expression2:  $3.(*Expression),
@@ -901,7 +901,7 @@ Expression:
 |	Expression "<=" Expression
 	{
 		$$ = &Expression{
-			Case:         Le,
+			Case:         ExpressionLe,
 			Expression:   $1.(*Expression),
 			Token:        $2,
 			Expression2:  $3.(*Expression),
@@ -910,7 +910,7 @@ Expression:
 |	Expression "<<" Expression
 	{
 		$$ = &Expression{
-			Case:         Lsh,
+			Case:         ExpressionLsh,
 			Expression:   $1.(*Expression),
 			Token:        $2,
 			Expression2:  $3.(*Expression),
@@ -919,7 +919,7 @@ Expression:
 |	Expression "!=" Expression
 	{
 		$$ = &Expression{
-			Case:         Ne,
+			Case:         ExpressionNe,
 			Expression:   $1.(*Expression),
 			Token:        $2,
 			Expression2:  $3.(*Expression),
@@ -928,7 +928,7 @@ Expression:
 |	Expression "||" Expression
 	{
 		$$ = &Expression{
-			Case:         LOr,
+			Case:         ExpressionLOr,
 			Expression:   $1.(*Expression),
 			Token:        $2,
 			Expression2:  $3.(*Expression),
@@ -937,7 +937,7 @@ Expression:
 |	Expression ">>" Expression
 	{
 		$$ = &Expression{
-			Case:         Rsh,
+			Case:         ExpressionRsh,
 			Expression:   $1.(*Expression),
 			Token:        $2,
 			Expression2:  $3.(*Expression),
@@ -946,7 +946,7 @@ Expression:
 |	Expression "<-" Expression
 	{
 		$$ = &Expression{
-			Case:         Rx,
+			Case:         ExpressionRx,
 			Expression:   $1.(*Expression),
 			Token:        $2,
 			Expression2:  $3.(*Expression),
