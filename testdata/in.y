@@ -244,28 +244,28 @@ ElifList:
 Else:
 |       "else" Block
 
-Expression:
-        UnaryExpression
-|       Expression '%' Expression
-|       Expression '&' Expression
-|       Expression '*' Expression
-|       Expression '+' Expression
-|       Expression '-' Expression
-|       Expression '/' Expression
-|       Expression '<' Expression
-|       Expression '>' Expression
-|       Expression '^' Expression
-|       Expression '|' Expression
-|       Expression "&&" Expression
-|       Expression "&^" Expression
-|       Expression "==" Expression
-|       Expression ">=" Expression
-|       Expression "<=" Expression
-|       Expression "<<" Expression
-|       Expression "!=" Expression
-|       Expression "||" Expression
-|       Expression ">>" Expression
-|       Expression "<-" Expression
+/*yy:case Unary */	Expression:
+			        UnaryExpression
+/*yy:case Mod */	|       Expression '%' Expression
+/*yy:case And */	|       Expression '&' Expression
+/*yy:case Mul */	|       Expression '*' Expression
+/*yy:case Add */	|       Expression '+' Expression
+/*yy:case Sub */	|       Expression '-' Expression
+/*yy:case Div */	|       Expression '/' Expression
+/*yy:case Lt */		|       Expression '<' Expression
+/*yy:case Gt */		|       Expression '>' Expression
+/*yy:case Xor */	|       Expression '^' Expression
+/*yy:case Or */		|       Expression '|' Expression
+/* no directive */	|       Expression "&&" Expression
+/*yy:case AndNot */	|       Expression "&^" Expression
+/*yy:case Eq */		|       Expression "==" Expression
+/*yy:case Ge */		|       Expression ">=" Expression
+/*yy:case Le */		|       Expression "<=" Expression
+/*yy:case Lsh */	|       Expression "<<" Expression
+/*yy:case Ne */		|       Expression "!=" Expression
+/*yy:case LOr */	|       Expression "||" Expression
+/*yy:case Rsh */	|       Expression ">>" Expression
+/*yy:case Rx */		|       Expression "<-" Expression
 
 ExpressionOpt:
 |       Expression
