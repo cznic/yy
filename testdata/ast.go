@@ -800,7 +800,7 @@ func (n ExpressionCase) String() string {
 	case ExpressionRx:
 		return "ExpressionRx"
 	default:
-		return fmt.Sprintf("ExpressionCase(%v)", n)
+		return fmt.Sprintf("ExpressionCase(%v)", int(n))
 	}
 }
 

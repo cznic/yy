@@ -805,7 +805,7 @@ func genAST(spec *y.Parser) {
 					}
 				}
 			}
-			fmt.Fprintf(f, "default:\nreturn fmt.Sprintf(\"%sCase(%%v)\", n)\n", nm)
+			fmt.Fprintf(f, "default:\nreturn fmt.Sprintf(\"%sCase(%%v)\", int(n))\n", nm)
 			fmt.Fprintf(f, "}\n")
 			fmt.Fprintf(f, "}\n")
 		}
