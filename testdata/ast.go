@@ -756,6 +756,54 @@ const (
 	ExpressionRx
 )
 
+// String implements fmt.Stringer
+func (n ExpressionCase) String() string {
+	switch n {
+	case ExpressionUnary:
+		return "ExpressionUnary"
+	case ExpressionMod:
+		return "ExpressionMod"
+	case ExpressionAnd:
+		return "ExpressionAnd"
+	case ExpressionMul:
+		return "ExpressionMul"
+	case ExpressionAdd:
+		return "ExpressionAdd"
+	case ExpressionSub:
+		return "ExpressionSub"
+	case ExpressionDiv:
+		return "ExpressionDiv"
+	case ExpressionLt:
+		return "ExpressionLt"
+	case ExpressionGt:
+		return "ExpressionGt"
+	case ExpressionXor:
+		return "ExpressionXor"
+	case ExpressionOr:
+		return "ExpressionOr"
+	case ExpressionAndNot:
+		return "ExpressionAndNot"
+	case ExpressionEq:
+		return "ExpressionEq"
+	case ExpressionGe:
+		return "ExpressionGe"
+	case ExpressionLe:
+		return "ExpressionLe"
+	case ExpressionLsh:
+		return "ExpressionLsh"
+	case ExpressionNe:
+		return "ExpressionNe"
+	case ExpressionLOr:
+		return "ExpressionLOr"
+	case ExpressionRsh:
+		return "ExpressionRsh"
+	case ExpressionRx:
+		return "ExpressionRx"
+	default:
+		return fmt.Sprintf("ExpressionCase(%v)", n)
+	}
+}
+
 // Expression represents data reduced by productions:
 //
 //	Expression:

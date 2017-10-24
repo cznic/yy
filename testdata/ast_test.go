@@ -9,7 +9,7 @@ import (
 	"fmt"
 )
 
-func ExampleArgument() {
+func ExampleArgument_case0() {
 	fmt.Println(exampleAST(2, "package a ; var b [ 'c' ( 'd' )"))
 	// Output:
 }
@@ -19,7 +19,7 @@ func ExampleArgument_case1() {
 	// Output:
 }
 
-func ExampleArgumentList() {
+func ExampleArgumentList_case0() {
 	fmt.Println(exampleAST(4, "package a ; var b [ 'c' ( 'd' )"))
 	// Output:
 }
@@ -29,7 +29,7 @@ func ExampleArgumentList_case1() {
 	// Output:
 }
 
-func ExampleArrayType() {
+func ExampleArrayType_case0() {
 	fmt.Println(exampleAST(6, "package a ; var b [ ... ] c ("))
 	// Output:
 }
@@ -39,7 +39,7 @@ func ExampleArrayType_case1() {
 	// Output:
 }
 
-func ExampleAssignment() {
+func ExampleAssignment_case00() {
 	fmt.Println(exampleAST(8, "package a ; func b ( ) { 'c' = 'd' ;"))
 	// Output:
 }
@@ -99,7 +99,7 @@ func ExampleAssignment_case11() {
 	// Output:
 }
 
-func ExampleBasicLiteral() {
+func ExampleBasicLiteral_case0() {
 	fmt.Println(exampleAST(20, "package a ; import 'b' %"))
 	// Output:
 }
@@ -124,12 +124,12 @@ func ExampleBasicLiteral_case4() {
 	// Output:
 }
 
-func ExampleBlock() {
+func ExampleBlock_case0() {
 	fmt.Println(exampleAST(26, "package a ; func b ( ) { } ;"))
 	// Output:
 }
 
-func ExampleBlockOpt() {
+func ExampleBlockOpt_case0() {
 	fmt.Println(exampleAST(27, "package a ; func b ( ) ;") == (*BlockOpt)(nil))
 	// Output:
 }
@@ -139,12 +139,12 @@ func ExampleBlockOpt_case1() {
 	// Output:
 }
 
-func ExampleBody() {
+func ExampleBody_case0() {
 	fmt.Println(exampleAST(30, "package a ; func b ( ) { if { } ;"))
 	// Output:
 }
 
-func ExampleCall() {
+func ExampleCall_case0() {
 	fmt.Println(exampleAST(31, "package a ; var b [ 'c' ( ) %"))
 	// Output:
 }
@@ -159,7 +159,7 @@ func ExampleCall_case2() {
 	// Output:
 }
 
-func ExampleChanType() {
+func ExampleChanType_case0() {
 	fmt.Println(exampleAST(34, "package a ; var b chan c ("))
 	// Output:
 }
@@ -174,7 +174,7 @@ func ExampleChanType_case2() {
 	// Output:
 }
 
-func ExampleCommaOpt() {
+func ExampleCommaOpt_case0() {
 	fmt.Println(exampleAST(37, "package a ; var b [ chan c ( 'd' )") == (*CommaOpt)(nil))
 	// Output:
 }
@@ -184,7 +184,7 @@ func ExampleCommaOpt_case1() {
 	// Output:
 }
 
-func ExampleCompLitItem() {
+func ExampleCompLitItem_case0() {
 	fmt.Println(exampleAST(39, "package a ; var b [ 'c' { 'd' ,"))
 	// Output:
 }
@@ -204,7 +204,7 @@ func ExampleCompLitItem_case3() {
 	// Output:
 }
 
-func ExampleCompLitItemList() {
+func ExampleCompLitItemList_case0() {
 	fmt.Println(exampleAST(43, "package a ; var b [ 'c' { 'd' ,"))
 	// Output:
 }
@@ -214,7 +214,7 @@ func ExampleCompLitItemList_case1() {
 	// Output:
 }
 
-func ExampleCompLitType() {
+func ExampleCompLitType_case0() {
 	fmt.Println(exampleAST(45, "package a ; var b [ [ ... ] c {"))
 	// Output:
 }
@@ -234,7 +234,7 @@ func ExampleCompLitType_case3() {
 	// Output:
 }
 
-func ExampleCompLitValue() {
+func ExampleCompLitValue_case0() {
 	fmt.Println(exampleAST(49, "package a ; var b [ 'c' { } %"))
 	// Output:
 }
@@ -244,7 +244,7 @@ func ExampleCompLitValue_case1() {
 	// Output:
 }
 
-func ExampleConstDecl() {
+func ExampleConstDecl_case0() {
 	fmt.Println(exampleAST(51, "package a ; const ( ) ;"))
 	// Output:
 }
@@ -259,7 +259,7 @@ func ExampleConstDecl_case2() {
 	// Output:
 }
 
-func ExampleConstSpec() {
+func ExampleConstSpec_case0() {
 	fmt.Println(exampleAST(54, "package a ; const b )"))
 	// Output:
 }
@@ -274,7 +274,7 @@ func ExampleConstSpec_case2() {
 	// Output:
 }
 
-func ExampleConstSpecList() {
+func ExampleConstSpecList_case0() {
 	fmt.Println(exampleAST(57, "package a ; const ( b )"))
 	// Output:
 }
@@ -284,12 +284,12 @@ func ExampleConstSpecList_case1() {
 	// Output:
 }
 
-func ExampleElif() {
+func ExampleElif_case0() {
 	fmt.Println(exampleAST(60, "package a ; func b ( ) { if { } else if { } ;"))
 	// Output:
 }
 
-func ExampleElifList() {
+func ExampleElifList_case0() {
 	fmt.Println(exampleAST(61, "package a ; func b ( ) { if { } ;") == (*ElifList)(nil))
 	// Output:
 }
@@ -299,7 +299,7 @@ func ExampleElifList_case1() {
 	// Output:
 }
 
-func ExampleElse() {
+func ExampleElse_case0() {
 	fmt.Println(exampleAST(63, "package a ; func b ( ) { if { } ;") == (*Else)(nil))
 	// Output:
 }
@@ -309,57 +309,57 @@ func ExampleElse_case1() {
 	// Output:
 }
 
-func ExampleExpression() {
+func ExampleExpression_unary() {
 	fmt.Println(exampleAST(65, "package a ; var b = 'c' %"))
 	// Output:
 }
 
-func ExampleExpression_case01() {
+func ExampleExpression_mod() {
 	fmt.Println(exampleAST(66, "package a ; var b = 'c' % 'd' %"))
 	// Output:
 }
 
-func ExampleExpression_case02() {
+func ExampleExpression_and() {
 	fmt.Println(exampleAST(67, "package a ; var b = 'c' & 'd' %"))
 	// Output:
 }
 
-func ExampleExpression_case03() {
+func ExampleExpression_mul() {
 	fmt.Println(exampleAST(68, "package a ; var b = 'c' * 'd' %"))
 	// Output:
 }
 
-func ExampleExpression_case04() {
+func ExampleExpression_add() {
 	fmt.Println(exampleAST(69, "package a ; var b = 'c' + 'd' )"))
 	// Output:
 }
 
-func ExampleExpression_case05() {
+func ExampleExpression_sub() {
 	fmt.Println(exampleAST(70, "package a ; var b = 'c' - 'd' )"))
 	// Output:
 }
 
-func ExampleExpression_case06() {
+func ExampleExpression_div() {
 	fmt.Println(exampleAST(71, "package a ; var b = 'c' / 'd' %"))
 	// Output:
 }
 
-func ExampleExpression_case07() {
+func ExampleExpression_lt() {
 	fmt.Println(exampleAST(72, "package a ; var b = 'c' < 'd' )"))
 	// Output:
 }
 
-func ExampleExpression_case08() {
+func ExampleExpression_gt() {
 	fmt.Println(exampleAST(73, "package a ; var b = 'c' > 'd' )"))
 	// Output:
 }
 
-func ExampleExpression_case09() {
+func ExampleExpression_xor() {
 	fmt.Println(exampleAST(74, "package a ; var b = 'c' ^ 'd' )"))
 	// Output:
 }
 
-func ExampleExpression_case10() {
+func ExampleExpression_or() {
 	fmt.Println(exampleAST(75, "package a ; var b = 'c' | 'd' )"))
 	// Output:
 }
@@ -369,52 +369,52 @@ func ExampleExpression_case11() {
 	// Output:
 }
 
-func ExampleExpression_case12() {
+func ExampleExpression_andNot() {
 	fmt.Println(exampleAST(77, "package a ; var b = 'c' &^ 'd' %"))
 	// Output:
 }
 
-func ExampleExpression_case13() {
+func ExampleExpression_eq() {
 	fmt.Println(exampleAST(78, "package a ; var b = 'c' == 'd' )"))
 	// Output:
 }
 
-func ExampleExpression_case14() {
+func ExampleExpression_ge() {
 	fmt.Println(exampleAST(79, "package a ; var b = 'c' >= 'd' )"))
 	// Output:
 }
 
-func ExampleExpression_case15() {
+func ExampleExpression_le() {
 	fmt.Println(exampleAST(80, "package a ; var b = 'c' <= 'd' )"))
 	// Output:
 }
 
-func ExampleExpression_case16() {
+func ExampleExpression_lsh() {
 	fmt.Println(exampleAST(81, "package a ; var b = 'c' << 'd' %"))
 	// Output:
 }
 
-func ExampleExpression_case17() {
+func ExampleExpression_ne() {
 	fmt.Println(exampleAST(82, "package a ; var b = 'c' != 'd' )"))
 	// Output:
 }
 
-func ExampleExpression_case18() {
+func ExampleExpression_lOr() {
 	fmt.Println(exampleAST(83, "package a ; var b = 'c' || 'd' )"))
 	// Output:
 }
 
-func ExampleExpression_case19() {
+func ExampleExpression_rsh() {
 	fmt.Println(exampleAST(84, "package a ; var b = 'c' >> 'd' %"))
 	// Output:
 }
 
-func ExampleExpression_case20() {
+func ExampleExpression_rx() {
 	fmt.Println(exampleAST(85, "package a ; var b = 'c' <- 'd' )"))
 	// Output:
 }
 
-func ExampleExpressionList() {
+func ExampleExpressionList_case0() {
 	fmt.Println(exampleAST(88, "package a ; var b = 'c' )"))
 	// Output:
 }
@@ -424,7 +424,7 @@ func ExampleExpressionList_case1() {
 	// Output:
 }
 
-func ExampleExpressionListOpt() {
+func ExampleExpressionListOpt_case0() {
 	fmt.Println(exampleAST(90, "package a ; func b ( ) { return ;") == (*ExpressionListOpt)(nil))
 	// Output:
 }
@@ -434,7 +434,7 @@ func ExampleExpressionListOpt_case1() {
 	// Output:
 }
 
-func ExampleExpressionOpt() {
+func ExampleExpressionOpt_case0() {
 	fmt.Println(exampleAST(86, "package a ; var b [ 'c' [ :") == (*ExpressionOpt)(nil))
 	// Output:
 }
@@ -444,12 +444,12 @@ func ExampleExpressionOpt_case1() {
 	// Output:
 }
 
-func ExampleFile() {
+func ExampleFile_case0() {
 	fmt.Println(exampleAST(1, "package a ;"))
 	// Output:
 }
 
-func ExampleForHeader() {
+func ExampleForHeader_case0() {
 	fmt.Println(exampleAST(92, "package a ; func b ( ) { for range 'c' {"))
 	// Output:
 }
@@ -464,27 +464,27 @@ func ExampleForHeader_case2() {
 	// Output:
 }
 
-func ExampleForStatement() {
+func ExampleForStatement_case0() {
 	fmt.Println(exampleAST(96, "package a ; func b ( ) { for { } ;"))
 	// Output:
 }
 
-func ExampleFuncDecl() {
+func ExampleFuncDecl_case0() {
 	fmt.Println(exampleAST(97, "package a ; func b ( ) ;"))
 	// Output:
 }
 
-func ExampleFuncOrMethod() {
+func ExampleFuncOrMethod_case0() {
 	fmt.Println(exampleAST(98, "package a ; func b ( ) ;"))
 	// Output:
 }
 
-func ExampleFuncType() {
+func ExampleFuncType_case0() {
 	fmt.Println(exampleAST(99, "package a ; var b func ( ) ;"))
 	// Output:
 }
 
-func ExampleIdentifierList() {
+func ExampleIdentifierList_case0() {
 	fmt.Println(exampleAST(102, "package a ; var b ("))
 	// Output:
 }
@@ -494,7 +494,7 @@ func ExampleIdentifierList_case1() {
 	// Output:
 }
 
-func ExampleIdentifierOpt() {
+func ExampleIdentifierOpt_case0() {
 	fmt.Println(exampleAST(100, "package a ; import 'b'") == (*IdentifierOpt)(nil))
 	// Output:
 }
@@ -504,7 +504,7 @@ func ExampleIdentifierOpt_case1() {
 	// Output:
 }
 
-func ExampleIfHeader() {
+func ExampleIfHeader_case0() {
 	fmt.Println(exampleAST(104, "package a ; func b ( ) { switch c := 1 {"))
 	// Output:
 }
@@ -514,12 +514,12 @@ func ExampleIfHeader_case1() {
 	// Output:
 }
 
-func ExampleIfStatement() {
+func ExampleIfStatement_case0() {
 	fmt.Println(exampleAST(107, "package a ; func b ( ) { if { } ;"))
 	// Output:
 }
 
-func ExampleImportDecl() {
+func ExampleImportDecl_case0() {
 	fmt.Println(exampleAST(108, "package a ; import ( ) ;"))
 	// Output:
 }
@@ -534,7 +534,7 @@ func ExampleImportDecl_case2() {
 	// Output:
 }
 
-func ExampleImportList() {
+func ExampleImportList_case0() {
 	fmt.Println(exampleAST(116, "package a ;") == (*ImportList)(nil))
 	// Output:
 }
@@ -544,12 +544,12 @@ func ExampleImportList_case1() {
 	// Output:
 }
 
-func ExampleImportPath() {
+func ExampleImportPath_case0() {
 	fmt.Println(exampleAST(111, "package a ; import 'b' )"))
 	// Output:
 }
 
-func ExampleImportSpec() {
+func ExampleImportSpec_case0() {
 	fmt.Println(exampleAST(112, "package a ; import . 'b' )"))
 	// Output:
 }
@@ -559,7 +559,7 @@ func ExampleImportSpec_case1() {
 	// Output:
 }
 
-func ExampleImportSpecList() {
+func ExampleImportSpecList_case0() {
 	fmt.Println(exampleAST(114, "package a ; import ( 'b' )"))
 	// Output:
 }
@@ -569,7 +569,7 @@ func ExampleImportSpecList_case1() {
 	// Output:
 }
 
-func ExampleInterfaceMethodDecl() {
+func ExampleInterfaceMethodDecl_case0() {
 	fmt.Println(exampleAST(120, "package a ; var b interface { c ( ) ;"))
 	// Output:
 }
@@ -579,7 +579,7 @@ func ExampleInterfaceMethodDecl_case1() {
 	// Output:
 }
 
-func ExampleInterfaceMethodDeclList() {
+func ExampleInterfaceMethodDeclList_case0() {
 	fmt.Println(exampleAST(122, "package a ; var b interface { c ;"))
 	// Output:
 }
@@ -589,7 +589,7 @@ func ExampleInterfaceMethodDeclList_case1() {
 	// Output:
 }
 
-func ExampleInterfaceType() {
+func ExampleInterfaceType_case0() {
 	fmt.Println(exampleAST(118, "package a ; var b interface { } ("))
 	// Output:
 }
@@ -599,7 +599,7 @@ func ExampleInterfaceType_case1() {
 	// Output:
 }
 
-func ExampleLBrace() {
+func ExampleLBrace_case0() {
 	fmt.Println(exampleAST(124, "package a ; func b ( ) { if interface { } ( nil ) { } }"))
 	// Output:
 }
@@ -609,7 +609,7 @@ func ExampleLBrace_case1() {
 	// Output:
 }
 
-func ExampleLBraceCompLitItem() {
+func ExampleLBraceCompLitItem_case0() {
 	fmt.Println(exampleAST(126, "package a ; var b [ [ ] c { 'd' ,"))
 	// Output:
 }
@@ -629,7 +629,7 @@ func ExampleLBraceCompLitItem_case3() {
 	// Output:
 }
 
-func ExampleLBraceCompLitItemList() {
+func ExampleLBraceCompLitItemList_case0() {
 	fmt.Println(exampleAST(130, "package a ; var b [ [ ] c { 'd' ,"))
 	// Output:
 }
@@ -639,7 +639,7 @@ func ExampleLBraceCompLitItemList_case1() {
 	// Output:
 }
 
-func ExampleLBraceCompLitValue() {
+func ExampleLBraceCompLitValue_case0() {
 	fmt.Println(exampleAST(132, "package a ; var b [ [ ] c { } %"))
 	// Output:
 }
@@ -649,12 +649,12 @@ func ExampleLBraceCompLitValue_case1() {
 	// Output:
 }
 
-func ExampleMapType() {
+func ExampleMapType_case0() {
 	fmt.Println(exampleAST(134, "package a ; var b map [ c ] d ("))
 	// Output:
 }
 
-func ExampleOperand() {
+func ExampleOperand_case0() {
 	fmt.Println(exampleAST(137, "package a ; var b [ ( 'c' ) %"))
 	// Output:
 }
@@ -679,7 +679,7 @@ func ExampleOperand_case5() {
 	// Output:
 }
 
-func ExampleParameterDecl() {
+func ExampleParameterDecl_case0() {
 	fmt.Println(exampleAST(144, "package a ; func ( ... b )"))
 	// Output:
 }
@@ -699,7 +699,7 @@ func ExampleParameterDecl_case3() {
 	// Output:
 }
 
-func ExampleParameterDeclList() {
+func ExampleParameterDeclList_case0() {
 	fmt.Println(exampleAST(148, "package a ; func ( b )"))
 	// Output:
 }
@@ -709,7 +709,7 @@ func ExampleParameterDeclList_case1() {
 	// Output:
 }
 
-func ExampleParameters() {
+func ExampleParameters_case0() {
 	fmt.Println(exampleAST(150, "package a ; func ( ) ("))
 	// Output:
 }
@@ -719,7 +719,7 @@ func ExampleParameters_case1() {
 	// Output:
 }
 
-func ExamplePrimaryExpression() {
+func ExamplePrimaryExpression_case00() {
 	fmt.Println(exampleAST(152, "package a ; var b [ 'c' %"))
 	// Output:
 }
@@ -774,12 +774,12 @@ func ExamplePrimaryExpression_case10() {
 	// Output:
 }
 
-func ExamplePrologue() {
+func ExamplePrologue_case0() {
 	fmt.Println(exampleAST(164, "package a ;"))
 	// Output:
 }
 
-func ExampleQualifiedIdent() {
+func ExampleQualifiedIdent_case0() {
 	fmt.Println(exampleAST(135, "package a ; var b c ("))
 	// Output:
 }
@@ -789,7 +789,7 @@ func ExampleQualifiedIdent_case1() {
 	// Output:
 }
 
-func ExampleRange() {
+func ExampleRange_case0() {
 	fmt.Println(exampleAST(166, "package a ; func b ( ) { for 'c' = range 'd' {"))
 	// Output:
 }
@@ -804,7 +804,7 @@ func ExampleRange_case2() {
 	// Output:
 }
 
-func ExampleReceiverOpt() {
+func ExampleReceiverOpt_case0() {
 	fmt.Println(exampleAST(169, "package a ; func b") == (*ReceiverOpt)(nil))
 	// Output:
 }
@@ -814,7 +814,7 @@ func ExampleReceiverOpt_case1() {
 	// Output:
 }
 
-func ExampleResultOpt() {
+func ExampleResultOpt_case0() {
 	fmt.Println(exampleAST(171, "package a ; func b ( ) )") == (*ResultOpt)(nil))
 	// Output:
 }
@@ -829,12 +829,12 @@ func ExampleResultOpt_case2() {
 	// Output:
 }
 
-func ExampleSelectStatement() {
+func ExampleSelectStatement_case0() {
 	fmt.Println(exampleAST(174, "package a ; func b ( ) { select { } ;"))
 	// Output:
 }
 
-func ExampleSemicolonOpt() {
+func ExampleSemicolonOpt_case0() {
 	fmt.Println(exampleAST(175, "package a ; import ( 'b' )") == (*SemicolonOpt)(nil))
 	// Output:
 }
@@ -844,12 +844,12 @@ func ExampleSemicolonOpt_case1() {
 	// Output:
 }
 
-func ExampleSignature() {
+func ExampleSignature_case0() {
 	fmt.Println(exampleAST(177, "package a ; func b ( ) ;"))
 	// Output:
 }
 
-func ExampleSimpleStatement() {
+func ExampleSimpleStatement_case0() {
 	fmt.Println(exampleAST(178, "package a ; func b ( ) { 'c' = 'd' ;"))
 	// Output:
 }
@@ -874,7 +874,7 @@ func ExampleSimpleStatement_case4() {
 	// Output:
 }
 
-func ExampleSimpleStatementOpt() {
+func ExampleSimpleStatementOpt_case0() {
 	fmt.Println(exampleAST(183, "package a ; func b ( ) { switch ;") == (*SimpleStatementOpt)(nil))
 	// Output:
 }
@@ -884,12 +884,12 @@ func ExampleSimpleStatementOpt_case1() {
 	// Output:
 }
 
-func ExampleSliceType() {
+func ExampleSliceType_case0() {
 	fmt.Println(exampleAST(185, "package a ; var b [ ] c ("))
 	// Output:
 }
 
-func ExampleStatement() {
+func ExampleStatement_case0() {
 	fmt.Println(exampleAST(186, "package a ; var b [ func ( ) { ;") == (*Statement)(nil))
 	// Output:
 }
@@ -919,7 +919,7 @@ func ExampleStatement_case5() {
 	// Output:
 }
 
-func ExampleStatementList() {
+func ExampleStatementList_case0() {
 	fmt.Println(exampleAST(192, "package a ; func b ( ) { return }"))
 	// Output:
 }
@@ -929,7 +929,7 @@ func ExampleStatementList_case1() {
 	// Output:
 }
 
-func ExampleStatementNonDecl() {
+func ExampleStatementNonDecl_case00() {
 	fmt.Println(exampleAST(194, "package a ; func b ( ) { break ;"))
 	// Output:
 }
@@ -994,7 +994,7 @@ func ExampleStatementNonDecl_case12() {
 	// Output:
 }
 
-func ExampleStringLitOpt() {
+func ExampleStringLitOpt_case0() {
 	fmt.Println(exampleAST(208, "package a ; var b struct { c ;") == (*StringLitOpt)(nil))
 	// Output:
 }
@@ -1004,7 +1004,7 @@ func ExampleStringLitOpt_case1() {
 	// Output:
 }
 
-func ExampleStructFieldDecl() {
+func ExampleStructFieldDecl_case0() {
 	fmt.Println(exampleAST(210, "package a ; var b struct { * c ;"))
 	// Output:
 }
@@ -1034,7 +1034,7 @@ func ExampleStructFieldDecl_case5() {
 	// Output:
 }
 
-func ExampleStructFieldDeclList() {
+func ExampleStructFieldDeclList_case0() {
 	fmt.Println(exampleAST(216, "package a ; var b struct { c ;"))
 	// Output:
 }
@@ -1044,7 +1044,7 @@ func ExampleStructFieldDeclList_case1() {
 	// Output:
 }
 
-func ExampleStructType() {
+func ExampleStructType_case0() {
 	fmt.Println(exampleAST(218, "package a ; var b struct { } ("))
 	// Output:
 }
@@ -1054,7 +1054,7 @@ func ExampleStructType_case1() {
 	// Output:
 }
 
-func ExampleSwitchBody() {
+func ExampleSwitchBody_case0() {
 	fmt.Println(exampleAST(220, "package a ; func b ( ) { switch { } ;"))
 	// Output:
 }
@@ -1064,7 +1064,7 @@ func ExampleSwitchBody_case1() {
 	// Output:
 }
 
-func ExampleSwitchCase() {
+func ExampleSwitchCase_case0() {
 	fmt.Println(exampleAST(222, "package a ; func b ( ) { switch { case 'c' : !"))
 	// Output:
 }
@@ -1084,12 +1084,12 @@ func ExampleSwitchCase_case3() {
 	// Output:
 }
 
-func ExampleSwitchCaseBlock() {
+func ExampleSwitchCaseBlock_case0() {
 	fmt.Println(exampleAST(227, "package a ; func b ( ) { switch { default : }"))
 	// Output:
 }
 
-func ExampleSwitchCaseList() {
+func ExampleSwitchCaseList_case0() {
 	fmt.Println(exampleAST(228, "package a ; func b ( ) { switch { default : }"))
 	// Output:
 }
@@ -1099,12 +1099,12 @@ func ExampleSwitchCaseList_case1() {
 	// Output:
 }
 
-func ExampleSwitchStatement() {
+func ExampleSwitchStatement_case0() {
 	fmt.Println(exampleAST(231, "package a ; func b ( ) { switch { } ;"))
 	// Output:
 }
 
-func ExampleTopLevelDecl() {
+func ExampleTopLevelDecl_case0() {
 	fmt.Println(exampleAST(232, "package a ; const b ;"))
 	// Output:
 }
@@ -1124,7 +1124,7 @@ func ExampleTopLevelDecl_case3() {
 	// Output:
 }
 
-func ExampleTopLevelDeclList() {
+func ExampleTopLevelDeclList_case0() {
 	fmt.Println(exampleAST(237, "package a ;") == (*TopLevelDeclList)(nil))
 	// Output:
 }
@@ -1134,7 +1134,7 @@ func ExampleTopLevelDeclList_case1() {
 	// Output:
 }
 
-func ExampleType() {
+func ExampleType_case00() {
 	fmt.Println(exampleAST(239, "package a ; var b ( c ) ("))
 	// Output:
 }
@@ -1184,7 +1184,7 @@ func ExampleType_case09() {
 	// Output:
 }
 
-func ExampleTypeDecl() {
+func ExampleTypeDecl_case0() {
 	fmt.Println(exampleAST(249, "package a ; type ( ) ;"))
 	// Output:
 }
@@ -1199,7 +1199,7 @@ func ExampleTypeDecl_case2() {
 	// Output:
 }
 
-func ExampleTypeLiteral() {
+func ExampleTypeLiteral_case0() {
 	fmt.Println(exampleAST(252, "package a ; var b [ * chan c )"))
 	// Output:
 }
@@ -1239,12 +1239,12 @@ func ExampleTypeLiteral_case7() {
 	// Output:
 }
 
-func ExampleTypeSpec() {
+func ExampleTypeSpec_case0() {
 	fmt.Println(exampleAST(260, "package a ; type b c )"))
 	// Output:
 }
 
-func ExampleTypeSpecList() {
+func ExampleTypeSpecList_case0() {
 	fmt.Println(exampleAST(261, "package a ; type ( b c )"))
 	// Output:
 }
@@ -1254,7 +1254,7 @@ func ExampleTypeSpecList_case1() {
 	// Output:
 }
 
-func ExampleUnaryExpression() {
+func ExampleUnaryExpression_case0() {
 	fmt.Println(exampleAST(263, "package a ; var b [ ! 'c' %"))
 	// Output:
 }
@@ -1294,7 +1294,7 @@ func ExampleUnaryExpression_case7() {
 	// Output:
 }
 
-func ExampleVarDecl() {
+func ExampleVarDecl_case0() {
 	fmt.Println(exampleAST(271, "package a ; var ( ) ;"))
 	// Output:
 }
@@ -1309,7 +1309,7 @@ func ExampleVarDecl_case2() {
 	// Output:
 }
 
-func ExampleVarSpec() {
+func ExampleVarSpec_case0() {
 	fmt.Println(exampleAST(274, "package a ; var b = 'c' )"))
 	// Output:
 }
@@ -1324,7 +1324,7 @@ func ExampleVarSpec_case2() {
 	// Output:
 }
 
-func ExampleVarSpecList() {
+func ExampleVarSpecList_case0() {
 	fmt.Println(exampleAST(277, "package a ; var ( b c )"))
 	// Output:
 }

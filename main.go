@@ -793,6 +793,21 @@ func genAST(spec *y.Parser) {
 				fmt.Fprintln(f, "_")
 			}
 			fmt.Fprintf(f, ")\n")
+			fmt.Fprintf(f, "\n// String implements fmt.Stringer\n")
+			fmt.Fprintf(f, "func (n %sCase) String() string {\n", nm)
+			fmt.Fprintf(f, "switch n {\n")
+		outer2:
+			for _, rule := range sym.Rules {
+				for _, d := range ruleDirectives[rule] {
+					if d.cmd == "case" {
+						fmt.Fprintf(f, "case %s%s:\nreturn \"%s%s\"\n", nm, d.arg, nm, d.arg)
+						continue outer2
+					}
+				}
+			}
+			fmt.Fprintf(f, "default:\nreturn fmt.Sprintf(\"%sCase(%%v)\", n)\n", nm)
+			fmt.Fprintf(f, "}\n")
+			fmt.Fprintf(f, "}\n")
 		}
 
 		plural := ""
@@ -1570,10 +1585,16 @@ import (
 				src = strings.Join(r, *oTokenSep)
 			}
 
-			switch {
-			case icase == 0:
-				f.Format("\nfunc Example%s() {%i\n", nm)
-			default:
+			ok := false
+			for _, v := range ruleDirectives[rule] {
+				if v.cmd == "case" {
+					s := strings.ToLower(v.arg[:1]) + v.arg[1:]
+					f.Format("\nfunc Example%s_%v() {%i\n", nm, s)
+					ok = true
+					break
+				}
+			}
+			if !ok {
 				f.Format("\nfunc Example%s_case%0*d() {%i\n", nm, w, icase)
 			}
 			switch len(normalizedBody(rule.Body)) {
